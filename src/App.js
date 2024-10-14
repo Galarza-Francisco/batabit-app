@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import Header from './components/header';
+import CurrencyTable from './components/CurrencyTable';
+import ProductInfo from './components/ProductInfo';
+import Footer from './components/Footer';
+import Prices from './components/Prices';
+import { fetchCryptocurrencies } from './services/cryptoService';
 
-function App() {
+const App = () => {
+  const [currencies, setCurrencies] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState('');
+
+  useEffect(() => {
+    const loadCryptocurrencies = async () => {
+      const data = await fetchCryptocurrencies();
+      const formattedCurrencies = data.map(crypto => ({
+        name: crypto.name,
+        price: `$${crypto.current_price.toFixed(2)}`,
+        trend: crypto.price_change_percentage_24h < 0 ? 'down' : 'up',
+      }));
+      setCurrencies(formattedCurrencies);
+      setLastUpdated(new Date().toLocaleString());
+    };
+
+    loadCryptocurrencies();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <CurrencyTable currencies={currencies} lastUpdated={lastUpdated} />
+      <ProductInfo />
+      <Prices/>
+      <Footer /> 
     </div>
   );
-}
+};
 
 export default App;
