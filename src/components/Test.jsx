@@ -1,11 +1,11 @@
+import React from 'react'
 
-import React from 'react';
-import logo from '../assets/imgs/logo.svg'; 
-
-const Header = () => {
+const Test = () => {
   return (
-<header>
-        <img src={logo} width={'50%'} className='self-center' height={24} alt="Logo de Batabit" />
+    <>
+<body>
+    <header>
+        <img src="./assets/img/logo.svg" alt="Logo de Batabit" />
         <div class="header--title-container">
             <h1>La próxima revolución en el intercambio de criptomonedas.</h1>
             <p>Batatabit te ayuda a navegar entre los diferentes precios y tendencias.</p>
@@ -14,7 +14,18 @@ const Header = () => {
             </a>
         </div>
     </header>
-  );
-};
+    <main>
+        <section>
+            
+        </section>
+    </main>
+    <footer>
 
-export default Header;
+    </footer>   
+</body>
+
+    </>
+  )
+}
+
+export default Test
